@@ -1,0 +1,41 @@
+{
+  "name": "bfx-facs-lokue",
+  "version": "0.0.1",
+  "private": false,
+  "description": "Bitfinex Lokue Facility",
+  "author": {
+    "name": "prdn",
+    "email": "paolo@bitfinex.com"
+  },
+  "keywords": [
+    "bitfinex"
+  ],
+  "dependencies": {
+    "async": "~2.5.0",
+    "lodash": "~4.17.4",
+    "lokijs": "^1.4.3",
+    "lokue": "^0.0.6"
+  },
+  "engine": {
+    "node": ">=6.0"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bitfinexcom/bfx-facs-lokue.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bitfinexcom/bfx-facs-lokue/issues"
+  },
+  "homepage": "https://github.com/bitfinexcom/bfx-facs-lokue",
+  "maintainers": [
+    {
+      "name": "prdn",
+      "email": "paolo@bitfinex.com"
+    }
+  ]
+}
