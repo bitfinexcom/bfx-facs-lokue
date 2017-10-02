@@ -16,8 +16,10 @@ class LokueFacility extends Facility {
   init () {
     super.init()
 
+    const cal = this.caller
+
     this.q = new Lokue({
-      name: `${__dirname}/../db/${this.name}_${this.opts.name}_${this.opts.label}.db.json`,
+      name: `${cal.ctx.root}/db/${this.name}_${this.opts.name}_${this.opts.label}.db.json`,
       persist: this.opts.persist
     })
   }
