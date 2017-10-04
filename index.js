@@ -2,9 +2,9 @@
 
 const async = require('async')
 const Lokue = require('lokue')
-const Facility = require('./base')
+const Base = require('bfx-facs-base')
 
-class LokueFacility extends Facility {
+class LokueFacility extends Base {
   constructor (caller, opts, ctx) {
     super(caller, opts, ctx)
 
