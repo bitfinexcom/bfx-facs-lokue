@@ -1,5 +1,6 @@
 'use strict'
 
+const path = require('path')
 const async = require('async')
 const Lokue = require('lokue')
 const Base = require('bfx-facs-base')
@@ -18,9 +19,19 @@ class LokueFacility extends Base {
 
     const cal = this.caller
 
+    const {
+      dbFolder,
+      label,
+      persist
+    } = this.opts
+    const baseName = `${this.name}_${this.opts.name}_${label}.db.json`
+    const name = path.isAbsolute(dbFolder)
+      ? path.join(dbFolder, baseName)
+      : path.join(cal.ctx.root, 'db', baseName)
+
     this.q = new Lokue({
-      name: `${cal.ctx.root}/db/${this.name}_${this.opts.name}_${this.opts.label}.db.json`,
-      persist: this.opts.persist
+      name,
+      persist
     })
   }
 
