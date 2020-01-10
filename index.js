@@ -25,7 +25,10 @@ class LokueFacility extends Base {
       persist
     } = this.opts
     const baseName = `${this.name}_${this.opts.name}_${label}.db.json`
-    const name = path.isAbsolute(dbFolder)
+    const name = (
+      typeof dbFolder === 'string' &&
+      path.isAbsolute(dbFolder)
+    )
       ? path.join(dbFolder, baseName)
       : path.join(cal.ctx.root, 'db', baseName)
 
