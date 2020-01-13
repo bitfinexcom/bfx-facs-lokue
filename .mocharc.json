@@ -1,0 +1,5 @@
+{
+  "recursive": true,
+  "timeout": 1000,
+  "exit": true
+}
