@@ -33,7 +33,7 @@ describe('General', () => {
         name: 'name',
         label: 'label',
         persist: true,
-        dbFolder: absolutePathToDb
+        dbPathAbsolute: absolutePathToDb
       }
     )
 
@@ -57,7 +57,7 @@ describe('General', () => {
         name: 'name',
         label: 'label',
         persist: true,
-        dbFolder: relativePathToDb
+        dbPathAbsolute: relativePathToDb
       }
     )
 
@@ -79,7 +79,7 @@ describe('General', () => {
         name: 'name',
         label: 'label',
         persist: true,
-        dbFolder: fakeDbDir
+        dbPathAbsolute: fakeDbDir
       }
     )
 

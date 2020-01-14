@@ -20,16 +20,16 @@ class LokueFacility extends Base {
     const cal = this.caller
 
     const {
-      dbFolder,
+      dbPathAbsolute,
       label,
       persist
     } = this.opts
     const baseName = `${this.name}_${this.opts.name}_${label}.db.json`
     const name = (
-      typeof dbFolder === 'string' &&
-      path.isAbsolute(dbFolder)
+      typeof dbPathAbsolute === 'string' &&
+      path.isAbsolute(dbPathAbsolute)
     )
-      ? path.join(dbFolder, baseName)
+      ? path.join(dbPathAbsolute, baseName)
       : path.join(cal.ctx.root, 'db', baseName)
 
     this.q = new Lokue({
