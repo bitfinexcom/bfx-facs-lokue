@@ -19,7 +19,7 @@
   "dependencies": {
     "@bitfinex/bfx-facs-base": "git+https://github.com/bitfinexcom/bfx-facs-base.git",
     "async": "^2.6.1",
-    "lodash": "^4.17.10",
+    "lodash": "^4.18.1",
     "lokue": "^0.0.9"
   },
   "engines": {
