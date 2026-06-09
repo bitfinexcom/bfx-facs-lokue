@@ -59,6 +59,7 @@ class LokueFacility extends Base {
     async.series([
       next => { super._stop(next) },
       next => {
+        clearInterval(this._clearItv)
         this.q.stop(next)
       }
     ], cb)
