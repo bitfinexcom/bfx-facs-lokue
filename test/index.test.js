@@ -23,7 +23,6 @@ function cleanupDb () {
 
 test('Uses absolute path to db', function (t) {
   resetDb()
-  t.teardown(cleanupDb, { force: true })
 
   const fac = new Fac(
     Fac,
@@ -34,6 +33,9 @@ test('Uses absolute path to db', function (t) {
       dbPathAbsolute: absolutePathToDb
     }
   )
+
+  t.teardown(() => new Promise((resolve) => fac.stop(resolve)), { force: true })
+  t.teardown(cleanupDb, { force: true })
 
   t.plan(2)
 
@@ -49,7 +51,6 @@ test('Uses absolute path to db', function (t) {
 test('Uses relative path to db', function (t) {
   resetDb()
   Fac.ctx = { root: './test' }
-  t.teardown(cleanupDb, { force: true })
 
   const fac = new Fac(
     Fac,
@@ -60,6 +61,9 @@ test('Uses relative path to db', function (t) {
       dbPathAbsolute: relativePathToDb
     }
   )
+
+  t.teardown(() => new Promise((resolve) => fac.stop(resolve)), { force: true })
+  t.teardown(cleanupDb, { force: true })
 
   t.plan(2)
 
@@ -74,7 +78,6 @@ test('Uses relative path to db', function (t) {
 
 test('Returns an error if db directory does not exist', function (t) {
   resetDb()
-  t.teardown(cleanupDb, { force: true })
 
   const fac = new Fac(
     Fac,
@@ -85,6 +88,9 @@ test('Returns an error if db directory does not exist', function (t) {
       dbPathAbsolute: fakeDbDir
     }
   )
+
+  t.teardown(() => new Promise((resolve) => fac.stop(resolve)), { force: true })
+  t.teardown(cleanupDb, { force: true })
 
   t.plan(2)
 
