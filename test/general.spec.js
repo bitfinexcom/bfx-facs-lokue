@@ -1,12 +1,8 @@
-/* eslint-env mocha */
-
 'use strict'
 
-const assert = require('assert')
+const fs = require('fs')
 const path = require('path')
-
-const mkdirp = require('mkdirp')
-const rimraf = require('rimraf')
+const test = require('brittle')
 
 const Fac = require('../')
 
@@ -14,83 +10,89 @@ const relativePathToDb = './db'
 const absolutePathToDb = path.join(__dirname, 'db')
 const fakeDbDir = path.join(__dirname, 'fake_db_dir')
 
-beforeEach(() => {
-  rimraf.sync(absolutePathToDb)
-  mkdirp.sync(absolutePathToDb)
-
+function resetDb () {
+  fs.rmSync(absolutePathToDb, { recursive: true, force: true })
+  fs.mkdirSync(absolutePathToDb, { recursive: true })
   Fac.ctx = { root: '' }
-})
+}
 
-afterEach(() => {
-  rimraf.sync(absolutePathToDb)
-})
+function cleanupDb () {
+  fs.rmSync(absolutePathToDb, { recursive: true, force: true })
+  Fac.ctx = { root: '' }
+}
 
-describe('General', () => {
-  it('Uses absolute path to db', (done) => {
-    const fac = new Fac(
-      Fac,
-      {
-        name: 'name',
-        label: 'label',
-        persist: true,
-        dbPathAbsolute: absolutePathToDb
-      }
-    )
+test('Uses absolute path to db', function (t) {
+  resetDb()
+  t.teardown(cleanupDb, { force: true })
 
-    fac._start((err) => {
-      assert.ifError(err)
+  const fac = new Fac(
+    Fac,
+    {
+      name: 'name',
+      label: 'label',
+      persist: true,
+      dbPathAbsolute: absolutePathToDb
+    }
+  )
 
-      fac._stop((err) => {
-        assert.ifError(err)
+  t.plan(2)
 
-        done()
-      })
+  fac._start((err) => {
+    t.absent(err)
+
+    fac._stop((stopErr) => {
+      t.absent(stopErr)
     })
   })
+})
 
-  it('Uses relative path to db', (done) => {
-    Fac.ctx = { root: './test' }
+test('Uses relative path to db', function (t) {
+  resetDb()
+  Fac.ctx = { root: './test' }
+  t.teardown(cleanupDb, { force: true })
 
-    const fac = new Fac(
-      Fac,
-      {
-        name: 'name',
-        label: 'label',
-        persist: true,
-        dbPathAbsolute: relativePathToDb
-      }
-    )
+  const fac = new Fac(
+    Fac,
+    {
+      name: 'name',
+      label: 'label',
+      persist: true,
+      dbPathAbsolute: relativePathToDb
+    }
+  )
 
-    fac._start((err) => {
-      assert.ifError(err)
+  t.plan(2)
 
-      fac._stop((err) => {
-        assert.ifError(err)
+  fac._start((err) => {
+    t.absent(err)
 
-        done()
-      })
+    fac._stop((stopErr) => {
+      t.absent(stopErr)
     })
   })
+})
 
-  it('Returns an error if db directory does not exist', (done) => {
-    const fac = new Fac(
-      Fac,
-      {
-        name: 'name',
-        label: 'label',
-        persist: true,
-        dbPathAbsolute: fakeDbDir
-      }
-    )
+test('Returns an error if db directory does not exist', function (t) {
+  resetDb()
+  t.teardown(cleanupDb, { force: true })
 
-    fac._start((err) => {
-      assert.ifError(err)
+  const fac = new Fac(
+    Fac,
+    {
+      name: 'name',
+      label: 'label',
+      persist: true,
+      dbPathAbsolute: fakeDbDir
+    }
+  )
 
-      fac._stop((err) => {
-        assert.ok(err instanceof Error)
+  t.plan(2)
 
-        done()
-      })
+  fac._start((err) => {
+    t.absent(err)
+
+    fac._stop((stopErr) => {
+      t.ok(stopErr instanceof Error)
     })
   })
 })
