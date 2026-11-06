@@ -14,8 +14,8 @@
   "scripts": {
     "test": "npm run lint && npm run unit",
     "unit": "brittle-node test/**/*.spec.js",
-    "lint": "bfx-lint-js --jest",
-    "lint:fix": "bfx-lint-js --jest --fix"
+    "lint": "bfx-lint-js",
+    "lint:fix": "bfx-lint-js --fix"
   },
   "dependencies": {
     "@bitfinex/bfx-facs-base": "git+https://github.com/bitfinexcom/bfx-facs-base.git#v2.0.0",
